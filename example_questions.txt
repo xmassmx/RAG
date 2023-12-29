@@ -1,0 +1,7 @@
+How do the merge models with GRU and trainable embeddings compare to the merge models with LSTM and GloVe embeddings in terms of performance?
+What were the results of the attention model?
+How well did the injection models perform in terms of average BELU scores?
+Why does the injection model with two recurrent layers currently perform the best?
+What challenges and difficulties were encountered during the project in relation to image captioning?
+What variations of models were used for image captioning and how do they differ from each other?
+Are there any recent advancements in attention models that could potentially improve the results?
