@@ -6,3 +6,4 @@ artifacts/
 llm_applications_assignment.txt
 .DS_Store
 src/vector_store
+docs/
