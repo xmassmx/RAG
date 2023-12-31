@@ -1,4 +1,5 @@
-"""Evaluate a ConversationalRetrievalChain on a dataset of questions and answers."""
+"""Evaluate a ConversationalRetrievalChain on a dataset of questions and answers.
+Ref: https://github.com/wandb/edu/blob/main/llm-apps-course/src/eval.py"""
 import os
 from pathlib import Path
 from types import SimpleNamespace

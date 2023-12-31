@@ -1,4 +1,5 @@
-"""Ingest a directory of documentation files into a vector store and store the relevant artifacts in Weights & Biases"""
+"""Ingest a directory of documentation files into a vector store and store the relevant artifacts in Weights & Biases.
+Ref: https://github.com/wandb/edu/blob/main/llm-apps-course/src/ingest.py"""
 import argparse
 import json
 import logging

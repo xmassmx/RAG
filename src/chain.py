@@ -1,4 +1,5 @@
-"""This module contains functions for loading a ConversationalRetrievalChain"""
+"""This module contains functions for loading a ConversationalRetrievalChain
+Ref: https://github.com/wandb/edu/blob/main/llm-apps-course/src/chain.py"""
 
 import logging
 
@@ -33,7 +34,23 @@ def load_vector_store(wandb_run: wandb.run, openai_api_key: str) -> Chroma:
 
     return vector_store
 
+def load_vector_store_local(vectorstore_path: str, openai_api_key: str) -> Chroma:
+    """Load a vector store from a local path
+    Args:
+        vectorstore_path (str): Path to the local vectorstore to load
+        openai_api_key (str): The OpenAI API key to use for embedding
+    Returns:
+        Chroma: A chroma vector store object
+    """
+    # load vector store artifact
+    embedding_fn = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    # load vector store
+    vector_store = Chroma(
+        embedding_function=embedding_fn, persist_directory=vectorstore_path
+    )
 
+    return vector_store
+    
 def load_chain(wandb_run: wandb.run, vector_store: Chroma, openai_api_key: str):
     """Load a ConversationalQA chain from a config and a vector store
     Args:
@@ -54,6 +71,33 @@ def load_chain(wandb_run: wandb.run, vector_store: Chroma, openai_api_key: str):
         wandb_run.config.chat_prompt_artifact, type="prompt"
     ).download()
     qa_prompt = load_chat_prompt(f"{chat_prompt_dir}/prompt.json")
+    qa_chain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        combine_docs_chain_kwargs={"prompt": qa_prompt},
+        return_source_documents=True,
+    )
+    return qa_chain
+
+def load_chain_local(prompt_path: str, vector_store: Chroma, openai_api_key: str):
+    """Load a ConversationalQA chain from a config and a vector store
+    Args:
+        prompt_path (str): Path to prompt.json file
+        vector_store (Chroma): A Chroma vector store object
+        openai_api_key (str): The OpenAI API key to use for embedding
+    Returns:
+        ConversationalRetrievalChain: A ConversationalRetrievalChain object
+    """
+    retriever = vector_store.as_retriever()
+    llm = ChatOpenAI(
+        openai_api_key=openai_api_key,
+        model_name="gpt-3.5-turbo",
+        temperature=0.3,
+        max_retries=1,
+    )
+ 
+    qa_prompt = load_chat_prompt(f"{prompt_path}/prompt.json")
     qa_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         chain_type="stuff",

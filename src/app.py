@@ -1,4 +1,5 @@
-"""A Simple chatbot that uses the LangChain and Gradio UI to answer questions about wandb documentation."""
+"""A Simple chatbot that uses the LangChain and Gradio UI to answer questions about wandb documentation.
+Ref: https://github.com/wandb/edu/blob/main/llm-apps-course/src/app.py"""
 import os
 from types import SimpleNamespace
 from dotenv import load_dotenv
@@ -96,19 +97,32 @@ with gr.Blocks() as demo:
         </div>
         <p style="margin-bottom: 10px; font-size: 94%">
         Hi, I'm a Q and A bot which can address questions related to the project/assignment reports of Muhammad Abdullah Mulkana. Start by typing in your OpenAI API key, then ask your questions/issues and then press enter.<br>
-        Built using <a href="https://langchain.readthedocs.io/en/latest/" target="_blank">LangChain</a> and <a href="https://github.com/gradio-app/gradio" target="_blank">Gradio Github repo</a>
+        Built using <a href="https://langchain.readthedocs.io/en/latest/" target="_blank">LangChain</a> and <a href="https://github.com/gradio-app/gradio" target="_blank">Gradio Github repo</a>.<br>
+        Code inspired from <a href="https://github.com/wandb/edu/tree/main/llm-apps-course" target="_blank">WANDB LLM Apps Course Github repo</a>
         </p>
+        <h2 style="margin-bottom: 7px; margin-top: 50px;">
+            Sample questions:
+        </h2>
+
+        <ul style="margin-bottom: 75px; text-align: left; font-style: italic">
+            <li>What are the details of the dataset used for the body performance classification project?</li>
+            <li>How well did the injection models perform in terms of average BELU scores?</li>
+            <li>What challenges and difficulties were encountered during the project in relation to image captioning?</li>
+            <li>What variations of models were used for image captioning and how do they differ from each other?</li>
+        </ul>
+        
     </div>"""
     )
-    with gr.Row():
-        question = gr.Textbox(
-            label="Type in your questions here and press Enter!",
-            placeholder="what are the documents about?",
-        )
+    with gr.Column():
         openai_api_key = gr.Textbox(
             type="password",
             label="Enter your OpenAI API key here",
         )
+        question = gr.Textbox(
+            label="Type in your questions here and press Enter!",
+            placeholder="what are the documents about?",
+        )
+        
     state = gr.State()
     chatbot = gr.Chatbot()
     question.submit(
@@ -121,6 +135,6 @@ with gr.Blocks() as demo:
 
 
 if __name__ == "__main__":
-    demo.queue().launch(
+    demo.launch(
         share=False, server_name="0.0.0.0", server_port=8884, show_error=True
     )

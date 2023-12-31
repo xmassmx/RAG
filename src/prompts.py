@@ -1,4 +1,5 @@
-"""Prompts for the chatbot and evaluation."""
+"""Prompts for the chatbot and evaluation.
+Ref: https://github.com/wandb/edu/blob/main/llm-apps-course/src/prompts.py"""
 import json
 import logging
 import pathlib
