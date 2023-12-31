@@ -4,7 +4,7 @@ This repository contains the source code and resources for a Retrieval Augmented
 The codebase for the LLM Apps course from Weights and Biases is used and adapted to ingest a directory of PDF documents (https://github.com/wandb/edu/tree/main/llm-apps-course).
 
 
-The whole application is built using langchain and gradio. A demo of the application is hosted on Huggingface Spaces at the following link: https://xmassmx.github.io/RAG/
+The whole application is built using langchain and gradio. A demo of the application is hosted on Huggingface Spaces at the following link: https://xmassmx.github.io/RAG/ (Currently down... Work in progress)
 
 
 
